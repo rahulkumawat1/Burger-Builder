@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Layout/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildConrols';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery';
 
 const INGREDIENT_PRICE = {
     salad: 5,
@@ -20,7 +22,8 @@ class BurgerBuilder extends Component {
             bacon: 0
         },
         price: 10,
-        puchasable: false
+        puchasable: false,
+        purchasing: false
     };
 
     addIngredient = (type) => {
@@ -52,6 +55,22 @@ class BurgerBuilder extends Component {
         this.setState({puchasable: sum>0});
     };
 
+    purchaseHandler = () => {
+        this.setState({purchasing: true});
+    }
+
+    modalClosed = () => {
+        this.setState({purchasing: false});
+    }
+
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    }
+
+    purchaseContinueHandler = () => {
+        alert('You have placed order');
+    }
+
     render() {
 
         let disabledInfo = {...this.state.ingredients};
@@ -61,8 +80,18 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
+                <Modal backdropClicked={this.modalClosed} show={this.state.purchasing}>
+                    <OrderSummery 
+                        price={this.state.price}
+                        cancelCliked={this.purchaseCancelHandler} 
+                        continueClicked={this.purchaseContinueHandler} 
+                        ingredients={this.state.ingredients}
+                    />
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
+                    buttonClick={this.purchaseHandler}
+                    ingredients = {this.state.ingredients}
                     price = {this.state.price}
                     disabledInfo = {disabledInfo} 
                     addIngredient={this.addIngredient} 

@@ -2,14 +2,11 @@ import React from 'react';
 import classes from './BuildControls.css';
 import BuildControl from './BuildControl/BuildControl';
 
-const controls = [
-    {label: 'Meat', type: 'meat'},
-    {label: 'Cheese', type: 'cheese'},
-    {label: 'Bacon', type: 'bacon'},
-    {label: 'Salad', type: 'salad'}
-];
-
 const buildcontrols = (props) => {
+
+    const controls = Object.keys(props.ingredients)
+        .map(igKey => {return {label: igKey[0].toUpperCase()+igKey.slice(1), type: igKey}});
+
     return (
         <div className={classes.BuildControls}>
             <div className={classes.price}><strong>Price: {props.price}</strong> </div>
@@ -22,7 +19,10 @@ const buildcontrols = (props) => {
                     removed = {() => props.removeIngredient(ctrl.type)}
                 />)
             }
-            <button className={classes.OrderButton} disabled={!props.purchasable}>ORDER</button>
+            <button 
+                onClick={props.buttonClick} 
+                className={classes.OrderButton} 
+                disabled={!props.purchasable}>ORDER</button>
         </div>
     );
 };
