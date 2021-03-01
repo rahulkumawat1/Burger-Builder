@@ -1,0 +1,23 @@
+.OrderSummery {
+  width: 80%;
+  text-align: center;
+  margin: auto;
+}
+
+@media (min-width: 500px) {
+  .OrderSummery {
+    width: 500px;
+  }
+}
+
+@media (min-width: 500px) {
+  .OrderSummery {
+    width: 500px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .OrderSummery {
+    width: 700px;
+  }
+}

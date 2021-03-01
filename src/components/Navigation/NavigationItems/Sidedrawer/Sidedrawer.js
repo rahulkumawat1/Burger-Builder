@@ -3,13 +3,9 @@ import Logo from '../../../Logo/Logo';
 import NavigationItems from '../NavigationItems';
 import classes from './Sidedrawer.css';
 import Backdrop from '../../../UI/Backdrop/Backdrop';
-import Aux from '../../../../hoc/Layout/Aux/Aux';
+import Aux from '../../../../hoc/Aux/Aux';
 
 class Sidedrawer extends Component {
-
-    componentDidUpdate(){
-        console.log('[Sidedrawer.js] componentDidUpdate');
-    }
 
     render() {
         return (
@@ -20,7 +16,7 @@ class Sidedrawer extends Component {
                         <Logo />
                     </div>
                     <nav>
-                        <NavigationItems />
+                        <NavigationItems isAuth={this.props.isAuth} linkClicked={this.props.linkClicked} />
                     </nav>
                 </div>
             </Aux>

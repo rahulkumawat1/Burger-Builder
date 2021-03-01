@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import classes from './BuildControls.css';
 import BuildControl from './BuildControl/BuildControl';
 
@@ -22,9 +23,15 @@ const buildcontrols = (props) => {
             <button 
                 onClick={props.buttonClick} 
                 className={classes.OrderButton} 
-                disabled={!props.purchasable}>ORDER</button>
+                disabled={!props.purchasable}>{props.isAuth? 'ORDER': 'SignUp for ORDER'}</button>
         </div>
     );
 };
 
-export default buildcontrols;
+const mapStateToProps = state => {
+    return {
+        isAuth: state.auth.token !== null
+    }
+}
+
+export default connect(mapStateToProps)(buildcontrols);
